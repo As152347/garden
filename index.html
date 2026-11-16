@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A Sakura-themed birthday garden entrance.">
+  <title>A Little Secret Garden</title>
+  <style>
+    :root { --ink:#3e2430; --cream:#fff7ed; --blush:#f8d7dc; --pink:#d85b7d; --deep-pink:#aa385c; --wood:#783f2d; --wood-dark:#3c1d1a; --gold:#e7bd65; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; overflow-x:hidden; color:var(--ink); font-family:Georgia, 'Times New Roman', serif; background:linear-gradient(#94b8dc 0%,#d9e3d4 62%,#99b47d 62%); animation:page-in .55s ease both; }
+    body::after { content:''; position:fixed; z-index:100; inset:0; pointer-events:none; opacity:0; background:radial-gradient(circle at center,rgba(255,240,218,.1),rgba(91,39,75,.9)); transition:opacity .52s ease; }
+    body.page-leaving::after { opacity:1; }
+    @keyframes page-in { from { opacity:0; transform:scale(1.015); } to { opacity:1; transform:none; } }
+    button, input { font:inherit; }
+    button { cursor:pointer; }
+    .scene { min-height:100vh; position:relative; display:grid; place-items:center; padding:clamp(1rem,4vw,3rem); isolation:isolate; overflow:hidden; background:linear-gradient(180deg,#819eb9 0%,#c4d7d3 54%,#8eac75 54%); }
+    .scene::before { content:''; position:absolute; inset:0; z-index:-3; background:radial-gradient(ellipse at 18% 0%,rgba(255,255,255,.82),transparent 32%),linear-gradient(120deg,rgba(255,255,255,.25),transparent 40%); }
+    .hills { position:absolute; z-index:-2; bottom:-8vw; width:120vw; height:35vw; border-radius:50% 50% 0 0; background:#719968; box-shadow:0 -4vw 0 #8bab75, 20vw -3vw 0 #7c9e6a; }
+    .petals { position:absolute; inset:0; z-index:-1; pointer-events:none; overflow:hidden; }
+    .petal { position:absolute; width:15px; height:10px; border-radius:90% 10% 90% 10%; background:#ffdae6; opacity:.85; animation:fall linear infinite; }
+    .petal:nth-child(1){left:8%;animation-duration:10s;animation-delay:-4s}.petal:nth-child(2){left:19%;animation-duration:15s;animation-delay:-9s}.petal:nth-child(3){left:35%;animation-duration:11s;animation-delay:-1s}.petal:nth-child(4){left:58%;animation-duration:13s;animation-delay:-6s}.petal:nth-child(5){left:72%;animation-duration:9s;animation-delay:-2s}.petal:nth-child(6){left:88%;animation-duration:14s;animation-delay:-11s}
+    @keyframes fall { from { transform:translate3d(0,-10vh,0) rotate(0deg); } to { transform:translate3d(13vw,110vh,0) rotate(330deg); } }
+    .welcome { width:min(970px,100%); text-align:center; position:relative; }
+    h1 { margin:0 0 .25rem; color:#fffaf2; font-size:clamp(2rem,5vw,4.5rem); font-weight:400; letter-spacing:.04em; text-shadow:0 3px 12px rgba(63,31,42,.35); }
+    .intro { margin:0 0 clamp(1rem,3vw,2rem); color:#fffaf2; font-size:clamp(1rem,2vw,1.25rem); text-shadow:0 2px 7px rgba(30,52,52,.4); }
+    .entry { display:flex; align-items:center; justify-content:center; gap:clamp(.75rem,4vw,3rem); }
+    .entry { position:relative; padding-top:2.4rem; }
+    .doorway { position:relative; width:min(58vw,430px); aspect-ratio: .7; min-width:230px; perspective:1200px; }
+    .doorway::before { content:'鳥居'; position:absolute; z-index:3; left:50%; top:-2.6rem; transform:translateX(-50%); width:calc(100% + 52px); height:29px; border-radius:6px 6px 15px 15px; color:#f2d8bc; background:linear-gradient(#813d38,#451e25); box-shadow:0 9px 0 #6d2d31, 0 13px 0 rgba(43,19,20,.5), 0 14px 14px rgba(53,35,29,.27); font:700 1.1rem/29px serif; letter-spacing:.4em; text-indent:.4em; }
+    .doorway::after { content:''; position:absolute; z-index:2; left:50%; top:-1rem; transform:translateX(-50%); width:calc(100% + 28px); height:17px; border-radius:5px; background:linear-gradient(#a64f42,#60252b); box-shadow:0 7px 0 #3d1b21; }
+    .frame { position:absolute; inset:0; padding:13px; border:13px solid #351e1b; border-bottom:0; border-radius:230px 230px 0 0 / 125px 125px 0 0; background:linear-gradient(90deg,#2d1918,#74503b 18%,#352018 55%,#704a37); box-shadow:0 18px 22px rgba(42,27,22,.35), inset 0 0 0 3px #b27951; }
+    .door { width:100%; height:100%; transform-origin:left center; position:relative; border-radius:205px 205px 0 0 / 110px 110px 0 0; overflow:hidden; border:5px solid #281515; background:repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0 3px,transparent 3px 27px),linear-gradient(90deg,#40221f,#6b3c2d 35%,#482720 65%,#291414); box-shadow:inset 10px 0 8px rgba(255,218,162,.18), inset -12px 0 15px rgba(31,12,10,.48); transition:transform 1.65s cubic-bezier(.2,.75,.15,1),filter 1s; transform-style:preserve-3d; }
+    .door::before,.door::after { content:''; position:absolute; left:12%; right:12%; border:3px solid rgba(28,13,13,.9); background:linear-gradient(90deg,rgba(240,219,176,.2),transparent 40%,rgba(0,0,0,.16)); box-shadow:inset 0 0 0 2px rgba(231,194,132,.22); }
+    .door::before { top:24%; bottom:5%; }.door::after { top:7%; height:13%; }
+    .shoji { position:absolute; z-index:1; left:20%; top:31%; width:59%; height:49%; border:5px solid #281515; background:repeating-linear-gradient(90deg,transparent 0 29%,rgba(44,20,17,.8) 30% 33%),repeating-linear-gradient(0deg,rgba(255,242,211,.66) 0 22%,rgba(44,20,17,.85) 23% 26%); opacity:.88; box-shadow:inset 0 0 18px rgba(255,211,161,.56); }
+    .knob { z-index:2; position:absolute; top:54%; right:12%; width:32px; height:32px; border:3px solid #78531e; border-radius:50%; background:radial-gradient(circle at 32% 30%,#fff6b3,#d7a647 46%,#7a5320 70%); box-shadow:2px 4px 4px rgba(0,0,0,.35); }
+    .branch { position:absolute; pointer-events:none; z-index:1; width:300px; height:165px; background:linear-gradient(24deg,transparent 47%,#573827 48% 52%,transparent 53%),linear-gradient(138deg,transparent 48%,#67412d 49% 52%,transparent 53%); transform:rotate(-8deg); opacity:.9; }.branch::before,.branch::after { content:'✿  ✿  ✿'; position:absolute; color:#ffd6e4; font-size:2.25rem; letter-spacing:.6rem; text-shadow:0 2px 0 #c77a96,0 3px 8px rgba(62,25,40,.2); }.branch::before{top:22px;left:30px}.branch::after{top:76px;left:99px;font-size:1.7rem}.branch.left{left:-18%;top:12%}.branch.right{right:-19%;top:24%;transform:scaleX(-1) rotate(-8deg)}
+    /* Illustrated door treatment: intentionally calm, romantic, and less "game-like". */
+    .scene { background:radial-gradient(ellipse at 50% 37%,rgba(255,235,221,.92) 0 12%,rgba(237,194,203,.7) 28%,transparent 57%),linear-gradient(180deg,#758ca9 0%,#bfccd1 52%,#8da878 52%); }
+    .entry { width:100%; padding-top:.7rem; gap:0; }
+    .doorway { width:auto; height:min(64vh,560px); flex:0 0 auto; aspect-ratio:.82; min-width:0; transform:translateX(clamp(40px,5vw,90px)); filter:drop-shadow(0 18px 20px rgba(54,28,33,.28)); }
+    .doorway::before,.doorway::after { display:none; }
+    .doorway .frame { position:static; width:100%; height:100%; padding:0; border:0; border-radius:0; background:transparent; box-shadow:none; }
+    .doorway .door { width:100%; height:100%; border:0; border-radius:0; overflow:visible; background:none; box-shadow:none; }
+    .doorway .door::before,.doorway .door::after,.doorway .shoji,.doorway .knob { display:none; }
+    .door-art { display:block; width:100%; height:100%; object-fit:contain; user-select:none; pointer-events:none; }
+    .doorway.open .door { filter:brightness(.78); }
+    .keypad-zone { align-self:center; }
+    .keypad { border-color:#673345; border-radius:18px; background:linear-gradient(145deg,#4d2938,#1e1821); box-shadow:0 12px 20px rgba(56,27,41,.3),inset 0 0 0 2px #e3b3bd; }
+    .keypad::before { content:'✿  S A K U R A  ✿'; display:block; margin:0 0 8px; color:#ffd8e4; font:700 .51rem/1 Arial,sans-serif; letter-spacing:.14em; }
+    .keypad-screen { background:linear-gradient(90deg,#efadbf,#ffe1e7,#efadbf); color:#632e46; }
+    .welcome > .branch { display:none; }
+    /* The final scene is one painted world; the lock is a decorative sakura keepsake. */
+    .scene { background:linear-gradient(rgba(41,27,59,.12),rgba(41,27,59,.18)),url('sakura-garden-background.png') center center / cover no-repeat; }
+    .hills { display:none; }
+    .welcome { padding:1rem 0; }
+    .keypad-zone { position:absolute; top:48%; left:calc(50% + 155px); width:clamp(88px,9vw,112px); flex-basis:auto; transform:translateY(-50%); z-index:4; }
+    .keypad { width:100%; aspect-ratio:.69; min-height:0; padding:0; border:0; border-radius:0; background:transparent; box-shadow:none; overflow:visible; }
+    .lock-art { display:block; width:132%; height:132%; margin:-16% 0 0 -16%; object-fit:contain; mix-blend-mode:screen; clip-path:inset(1% 13% 1% 13% round 38%); filter:drop-shadow(0 10px 13px rgba(35,14,29,.42)); }
+    .keypad::before,.keypad-screen,.keypad-grid { visibility:hidden; }
+    .keypad:hover,.keypad:focus-visible { outline:3px solid rgba(255,237,214,.9); outline-offset:5px; transform:translateY(-4px) scale(1.025); box-shadow:none; }
+    .hint { border-color:#f9d2db; color:#704155; background:#fff9f1; box-shadow:0 5px 16px rgba(50,26,44,.3); }
+    .hint::after { border-color:#f9d2db; background:#fff9f1; }
+    .doorway.open .door { transform:rotateY(-105deg); filter:brightness(.76); }
+    .keypad-zone { position:relative; width:155px; flex:0 0 155px; }
+    .keypad { position:relative; padding:13px 12px 15px; border:4px solid #542835; border-radius:14px; color:#f3e8cb; background:linear-gradient(145deg,#3b222b,#151419); box-shadow:0 10px 14px rgba(32,35,37,.32), inset 0 0 0 2px #d29aaa; text-align:center; }
+    .keypad:hover,.keypad:focus-visible { outline:none; transform:translateY(-2px); box-shadow:0 13px 16px rgba(32,35,37,.34),0 0 0 4px rgba(255,238,185,.65),inset 0 0 0 2px #827265; }
+    .keypad-screen { margin-bottom:10px; padding:7px 4px; border-radius:4px; background:#f3b9ca; color:#5c2940; font:700 .95rem/1 monospace; letter-spacing:.13em; box-shadow:inset 0 1px 5px #a85c78; }
+    .keypad-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:5px; font:700 .7rem/1 Arial,sans-serif; }.keypad-grid span { padding:5px 0; border-radius:3px; background:#55555a; box-shadow:inset 0 1px #858588; }
+    .hint { position:absolute; right:110%; top:12%; width:max-content; padding:.65rem .85rem; color:#643146; background:#fff9e7; border:2px solid #d8829c; border-radius:14px; font:700 .95rem/1 Arial,sans-serif; box-shadow:0 4px 9px rgba(50,38,42,.16); animation:bob 1.5s ease-in-out infinite; }.hint::after { content:''; position:absolute; right:-12px; top:52%; width:18px; height:18px; background:#fff9e7; border-top:2px solid #d8829c; border-right:2px solid #d8829c; transform:translateY(-50%) rotate(45deg); }.hint strong{display:block;font-family:Georgia,serif;font-size:1.05rem;}.hint small{font-weight:400;}
+    @keyframes bob { 50% { transform:translateY(-7px); } }
+    .modal { position:fixed; z-index:10; inset:0; display:grid; place-items:center; padding:1rem; background:rgba(45,31,35,.5); backdrop-filter:blur(4px); opacity:0; pointer-events:none; transition:opacity .25s; }.modal.visible { opacity:1; pointer-events:auto; }.card { position:relative; width:min(365px,100%); padding:2rem; border:3px solid #e2a1ae; border-radius:24px; background:linear-gradient(135deg,#fffdf5,#f9dfdf); box-shadow:0 20px 60px rgba(33,18,25,.4); text-align:center; transform:translateY(12px) scale(.97); transition:transform .25s; }.visible .card { transform:none; }.close { position:absolute; top:.7rem; right:.9rem; border:0; color:#8a4f5d; background:none; font-size:1.7rem; }.card h2 { margin:.1rem 0 .55rem; font-size:1.7rem; font-weight:400; }.card p { margin:.3rem 0 1rem; }.code-display { width:100%; min-height:50px; margin:.5rem 0 1rem; padding:.7rem; border:2px solid #c8798c; border-radius:9px; color:#7b334a; background:#fffaf0; font:700 1.35rem/1.3 monospace; letter-spacing:.3em; }.numpad { display:grid; grid-template-columns:repeat(3,1fr); gap:.55rem; }.numpad button { min-height:46px; border:1px solid #ce879a; border-radius:9px; color:#6b3243; background:#fffaf5; font-size:1.25rem; box-shadow:0 2px 0 #e7b6bd; }.numpad button:hover,.numpad button:focus-visible { background:#f8cfd7; outline:3px solid #8d4e77; outline-offset:2px; }.numpad .clear { font-size:.9rem; }.feedback { min-height:1.2rem; margin:.75rem 0 0; color:#a73556; font:600 .92rem Arial,sans-serif; }.garden-choice { display:none; min-height:100vh; position:relative; place-items:center; padding:2rem; overflow:hidden; background:radial-gradient(circle at 50% 22%,#fff4de 0 10%,#f4cfd6 28%,#afcad3 75%); }.garden-choice.active { display:grid; }.choice-box { width:min(900px,100%); text-align:center; }.choice-box h2 { margin:0; font-size:clamp(2rem,5vw,4rem); font-weight:400; }.choice-box p { font-size:1.1rem; }.flowers { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(.7rem,3vw,2rem); margin-top:2rem; }.flower { min-height:230px; padding:1.15rem .5rem .8rem; border:3px solid rgba(255,255,255,.8); border-radius:24px; color:#552b3c; background:rgba(255,255,255,.52); box-shadow:0 12px 22px rgba(96,70,87,.17); transition:transform .2s,background .2s; }.flower:hover,.flower:focus-visible { background:#fffaf4; transform:translateY(-8px); outline:3px solid #a95170; outline-offset:3px; }.bloom { display:grid; place-items:center; height:130px; margin:auto; font-size:6.5rem; filter:drop-shadow(0 8px 4px rgba(77,60,45,.18)); }.flower strong { display:block; font-size:1.25rem; }.flower span { display:block; margin-top:.35rem; font:italic .95rem Arial,sans-serif; }.selected-note { min-height:2rem; margin:1.4rem auto 0; color:#643146; font-weight:bold; }
+    @media (max-width:650px) { .entry { gap:0; align-items:flex-end; }.doorway { height:min(63vh,490px); transform:none; }.doorway::before{width:calc(100% + 28px);top:-2.15rem;font-size:.85rem}.doorway::after{width:calc(100% + 12px)}.branch{transform:scale(.65) rotate(-8deg)}.branch.left{left:-35%;top:10%}.branch.right{right:-39%;top:25%;transform:scaleX(-1) scale(.65) rotate(-8deg)}.keypad-zone { top:52%; left:calc(50% + 96px); width:70px; flex-basis:auto; }.keypad { padding:0; border:0; }.keypad-screen { font-size:.68rem; }.keypad-grid { font-size:.5rem; gap:3px; }.keypad-grid span { padding:3px 0; }.hint { right:-8px; top:-82px; font-size:.8rem; }.hint::after { top:auto; bottom:-10px; right:35px; transform:rotate(135deg); }.hint strong { font-size:.9rem; }.flowers { gap:.5rem; }.flower { min-height:190px; padding:.8rem .25rem; }.bloom { height:100px; font-size:4.7rem; }.flower strong { font-size:1rem; }.flower span { font-size:.78rem; } }
+    /* Final layout rules live last so the lock cannot be reset by earlier keypad styles. */
+    .entry .doorway { transform:translateX(15px); }
+    .entry .keypad-zone { position:absolute; top:50%; left:calc(50% + 200px); width:74px; flex:0 0 74px; transform:translateY(-50%); z-index:5; }
+    .entry .hint { top:-84px; right:auto; left:-28px; }
+    .entry .hint::after { top:auto; right:auto; bottom:-10px; left:50%; transform:translateX(-50%) rotate(135deg); }
+    .doorway { transition:transform .9s cubic-bezier(.2,.75,.15,1); }
+    .door-art { transition:opacity .34s ease; }
+    .door-art.revealing { opacity:0; }
+    .doorway.open { transform:translateX(15px) scale(1.055); }
+    .doorway.open .door { transform:none!important; filter:none!important; }
+    .garden-choice { background:linear-gradient(rgba(46,25,54,.27),rgba(46,25,54,.36)),url('sakura-garden-background.png') center/cover no-repeat; }
+    .choice-box { padding:clamp(1.2rem,3vw,2.5rem); border:1px solid rgba(255,244,234,.5); border-radius:32px; background:rgba(45,23,48,.19); box-shadow:0 20px 50px rgba(27,14,30,.28); backdrop-filter:blur(7px); }
+    .choice-box h2 { color:#fff9ef; text-shadow:0 3px 12px rgba(43,19,40,.52); }
+    .choice-box > p { color:#fff5e7; text-shadow:0 2px 5px rgba(43,19,40,.52); }
+    .flower { border:2px solid rgba(255,249,237,.8); background:linear-gradient(145deg,rgba(255,251,245,.91),rgba(255,218,228,.75)); box-shadow:0 12px 22px rgba(30,12,27,.28); }
+    .flower:hover,.flower:focus-visible { background:#fffaf4; outline-color:#fff3d8; }
+    .selected-note { color:#fff7e9; text-shadow:0 2px 5px rgba(43,19,40,.52); }
+    @media (max-width:650px) { .entry .doorway { transform:none; }.entry .keypad-zone { top:52%; left:calc(50% + 92px); width:62px; flex-basis:62px; } }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; } }
+  </style>
+</head>
+<body>
+  <main id="entrance" class="scene">
+    <div class="petals" aria-hidden="true"><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i></div><div class="hills" aria-hidden="true"></div>
+    <section class="welcome" aria-labelledby="welcome-title">
+      <div class="branch left" aria-hidden="true"></div><div class="branch right" aria-hidden="true"></div><h1 id="welcome-title">A little secret awaits</h1><p class="intro">A sakura garden made especially for you.</p>
+      <div class="entry"><div class="doorway" id="doorway" aria-label="Locked sakura garden door"><div class="frame"><div class="door"><img class="door-art" src="sakura-door-illustration.png" alt="A glowing walnut Japanese garden door covered in cherry blossoms"></div></div></div>
+        <div class="keypad-zone"><div class="hint" aria-hidden="true"><strong>Click here</strong><small>to unlock the garden</small></div><button id="open-lock" class="keypad" type="button" aria-haspopup="dialog" aria-controls="lock-modal" aria-label="Open the garden lock keypad"><img class="lock-art" src="sakura-lock-ornament.png" alt=""><div class="keypad-screen">••••••••</div><div class="keypad-grid" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>✦</span><span>0</span><span>⌫</span></div></button></div>
+      </div>
+    </section>
+  </main>
+  <section id="lock-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="lock-title" aria-hidden="true"><div class="card"><button class="close" id="close-lock" aria-label="Close password keypad">×</button><h2 id="lock-title">Garden lock</h2><p>Enter the eight-digit secret code.</p><div id="code-display" class="code-display" aria-live="polite" aria-label="Entered code"></div><div class="numpad" aria-label="Numeric keypad"><button type="button" data-key="1">1</button><button type="button" data-key="2">2</button><button type="button" data-key="3">3</button><button type="button" data-key="4">4</button><button type="button" data-key="5">5</button><button type="button" data-key="6">6</button><button type="button" data-key="7">7</button><button type="button" data-key="8">8</button><button type="button" data-key="9">9</button><button type="button" class="clear" data-key="clear">Clear</button><button type="button" data-key="0">0</button><button type="button" class="clear" data-key="back">⌫</button></div><p id="feedback" class="feedback" aria-live="assertive"></p></div></section>
+  <main id="flower-choice" class="garden-choice" aria-labelledby="flower-title"><section class="choice-box"><h2 id="flower-title">Choose a flower for the garden</h2><p>A small choice, saved just for you.</p><div class="flowers"><button class="flower" data-flower="Rose" type="button"><span class="bloom" aria-hidden="true">🌹</span><strong>Rose</strong><span>For a heart full of warmth</span></button><button class="flower" data-flower="Sunflower" type="button"><span class="bloom" aria-hidden="true">🌻</span><strong>Sunflower</strong><span>For bright, golden days</span></button><button class="flower" data-flower="Lily" type="button"><span class="bloom" aria-hidden="true">🪷</span><strong>Lily</strong><span>For gentle, lovely dreams</span></button></div><p id="selected-note" class="selected-note" aria-live="polite"></p></section></main>
+  <script>
+    // Change this filename to choose where the garden page opens after a flower is picked.
+    const GARDEN_PAGE = 'flower_garden.html';
+    const PASSCODE = '20041111'; // A visual lock only; see the note below about security.
+    const modal = document.querySelector('#lock-modal'), display = document.querySelector('#code-display'), feedback = document.querySelector('#feedback');
+    const lockButton = document.querySelector('#open-lock'), closeButton = document.querySelector('#close-lock');
+    let code = '', lastFocus;
+    function drawCode() { display.textContent = code ? '•'.repeat(code.length) : '— — — — — — — —'; }
+    function openLock() { lastFocus = document.activeElement; code = ''; feedback.textContent = ''; drawCode(); modal.classList.add('visible'); modal.setAttribute('aria-hidden','false'); modal.querySelector('[data-key="1"]').focus(); }
+    function closeLock() { modal.classList.remove('visible'); modal.setAttribute('aria-hidden','true'); lastFocus?.focus(); }
+    function enter(key) { if (key === 'clear') code = ''; else if (key === 'back') code = code.slice(0,-1); else if (code.length < 8) code += key; drawCode(); feedback.textContent = ''; if (code.length === 8) checkCode(); }
+    function checkCode() { if (code === PASSCODE) { const doorway = document.querySelector('#doorway'); const doorArt = document.querySelector('.door-art'); closeLock(); document.querySelector('.keypad-zone').hidden = true; doorArt.src = 'sakura-door-open.png'; doorArt.alt = 'The sakura garden door opening to reveal a glowing garden'; doorway.classList.add('open'); setTimeout(() => { document.body.classList.add('page-leaving'); setTimeout(() => { window.location.href = 'flower-choice.html'; }, 540); }, 1100); } else { feedback.textContent = 'That code is not quite right. Try again gently.'; code = ''; setTimeout(drawCode, 520); } }
+    lockButton.addEventListener('click', openLock); closeButton.addEventListener('click', closeLock); modal.addEventListener('click', e => { if (e.target === modal) closeLock(); });
+    document.querySelectorAll('[data-key]').forEach(button => button.addEventListener('click', () => enter(button.dataset.key)));
+    document.addEventListener('keydown', e => { if (!modal.classList.contains('visible')) return; if (/^\d$/.test(e.key)) { e.preventDefault(); enter(e.key); } else if (e.key === 'Backspace') { e.preventDefault(); enter('back'); } else if (e.key === 'Escape') closeLock(); });
+    document.querySelectorAll('.flower').forEach(button => button.addEventListener('click', () => { const flower = button.dataset.flower; localStorage.setItem('birthdayGardenFlower', flower); document.querySelector('#selected-note').textContent = `${flower} has been saved. Taking you to the garden…`; setTimeout(() => { window.location.href = GARDEN_PAGE; }, 700); }));
+    const saved = localStorage.getItem('birthdayGardenFlower'); if (saved) document.querySelector('#selected-note').textContent = `Your saved flower: ${saved}. You can keep it or choose again.`;
+    drawCode();
+  </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Choose Your Flower</title>
+  <style>
+    :root { --cream:#fff9ef; --wine:#592a43; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; color:var(--cream); font-family:Georgia, 'Times New Roman', serif; background:linear-gradient(rgba(46,25,54,.3),rgba(46,25,54,.4)),url('sakura-garden-background.png') center/cover fixed no-repeat; animation:page-in .55s ease both; }
+    body::after { content:''; position:fixed; z-index:100; inset:0; pointer-events:none; opacity:0; background:radial-gradient(circle at center,rgba(255,240,218,.1),rgba(91,39,75,.9)); transition:opacity .52s ease; }
+    body.page-leaving::after { opacity:1; }
+    @keyframes page-in { from { opacity:0; transform:scale(1.015); } to { opacity:1; transform:none; } }
+    main { min-height:100vh; display:grid; place-items:center; padding:clamp(1rem,5vw,4rem); }
+    .panel { width:min(920px,100%); padding:clamp(1.4rem,4vw,3rem); border:1px solid rgba(255,244,234,.55); border-radius:32px; background:rgba(45,23,48,.25); box-shadow:0 20px 55px rgba(27,14,30,.38); backdrop-filter:blur(9px); text-align:center; }
+    h1 { margin:0; font-size:clamp(2.3rem,5vw,4.7rem); font-weight:400; text-shadow:0 3px 12px rgba(43,19,40,.6); }
+    .intro { margin:.6rem 0 2rem; font-size:clamp(1rem,2vw,1.2rem); text-shadow:0 2px 5px rgba(43,19,40,.58); }
+    .flowers { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(.7rem,3vw,2rem); }
+    .flower { min-height:245px; padding:1.25rem .7rem; border:2px solid rgba(255,249,237,.85); border-radius:24px; color:var(--wine); background:linear-gradient(145deg,rgba(255,251,245,.94),rgba(255,218,228,.8)); box-shadow:0 12px 24px rgba(30,12,27,.3); transition:transform .22s ease,background .22s; }
+    .flower:hover,.flower:focus-visible { background:#fffaf4; transform:translateY(-9px); outline:3px solid #fff3d8; outline-offset:3px; }
+    .mark { display:grid; place-items:center; height:140px; }.mark img { display:block; height:135px; max-width:100%; object-fit:contain; filter:drop-shadow(0 8px 9px rgba(91,42,67,.22)); }
+    .rose .mark { color:#d53e68; }.sunflower .mark { color:#d79820; }.lily .mark { color:#e798b7; }
+    strong { display:block; font-size:1.35rem; }.flower small { display:block; margin-top:.45rem; font:italic 1rem/1.35 Arial,sans-serif; }
+    #message { min-height:1.5rem; margin:1.4rem 0 0; font-weight:bold; }
+    @media(max-width:620px) { .flowers { gap:.55rem; }.flower { min-height:190px; padding:.8rem .2rem; }.mark { height:105px; font-size:4.6rem; } strong { font-size:1.05rem; }.flower small { font-size:.78rem; } }
+    @media(prefers-reduced-motion:reduce) { * { transition-duration:.01ms!important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="panel" aria-labelledby="title">
+      <h1 id="title">Choose a flower for the garden</h1>
+      <p class="intro">A small choice, saved just for you.</p>
+      <div class="flowers">
+        <button class="flower rose" type="button" data-flower="Rose"><span class="mark"><img src="rose-low-poly.png" alt=""></span><strong>Rose</strong><small>For a heart full of warmth</small></button>
+        <button class="flower sunflower" type="button" data-flower="Sunflower"><span class="mark"><img src="sunflower-low-poly.png" alt=""></span><strong>Sunflower</strong><small>For bright, golden days</small></button>
+        <button class="flower lily" type="button" data-flower="Lily"><span class="mark"><img src="lily-low-poly.png" alt=""></span><strong>Pink Lily</strong><small>For gentle, lovely dreams</small></button>
+      </div>
+      <p id="message" aria-live="polite"></p>
+    </section>
+  </main>
+  <script>
+    const GARDEN_PAGE = 'flower_garden.html';
+    const message = document.querySelector('#message');
+    document.querySelectorAll('[data-flower]').forEach(button => button.addEventListener('click', () => {
+      const flower = button.dataset.flower;
+      try { localStorage.setItem('birthdayGardenFlower', flower); } catch (e) { /* Local files can block browser storage; the URL below carries the choice. */ }
+      message.textContent = `${flower} has been saved. Taking you to the garden…`;
+      document.body.classList.add('page-leaving');
+      setTimeout(() => { window.location.href = GARDEN_PAGE + '?flower=' + encodeURIComponent(flower); }, 540);
+    }));
+  </script>
+</body>
+</html>
